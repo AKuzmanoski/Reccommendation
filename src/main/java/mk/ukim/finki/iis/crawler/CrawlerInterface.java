@@ -5,11 +5,11 @@ import mk.ukim.finki.iis.model.*;
 
 public interface CrawlerInterface {
 	
-	public List<Track> getStarterTracks(String filename);
+	public List<User> getUserFriends(User user);
 	
-	public List<User> getUsersForTrack(Track track);
+	public void crawlUsers(User user);
 	
-	public List<Track> getTrackForUser(User user);
+	public List<Track> getTracksForUser(User user);
 	
 	public User getUserInfo(String username);
     

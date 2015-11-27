@@ -87,8 +87,6 @@ public class LastFmAccess {
 		}
 
 		List<Track> tracks = new ArrayList<Track>();
-		System.out.println("content");
-		System.out.println(content);
 		JSONObject json = new JSONObject(content);
 		JSONObject jsonTracks=json.getJSONObject("toptracks");
 		JSONArray jsonItems=jsonTracks.getJSONArray("track");
@@ -113,8 +111,6 @@ public class LastFmAccess {
 			e.printStackTrace();
 		}
 	    User user=new User();
-		System.out.println("content");
-		System.out.println(content);
 		JSONObject json = new JSONObject(content);
 		JSONObject jsonUser=json.getJSONObject("user");
 		//user.setId(jsonUser.getLong("id"));
@@ -122,6 +118,30 @@ public class LastFmAccess {
 		user.setUrl(jsonUser.getString("url"));
 		user.setCountry(jsonUser.getString("country"));
 		return user;
+	}
+	public static List<User> parseUserFriends(String url) throws JSONException {
+
+	    String content = null;
+	    try {
+			content=getContentFromUrl(url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<User> friends = new ArrayList<User>();
+		JSONObject json = new JSONObject(content);
+		JSONObject jsonTracks=json.getJSONObject("friends");
+		JSONArray jsonItems=jsonTracks.getJSONArray("user");
+		for (int i = 0; i < jsonItems.length(); i++) {
+			JSONObject jObj = (JSONObject) jsonItems.get(i);
+			User user=new User();
+			user.setName(jObj.getString("name"));
+			user.setUrl(jObj.getString("url"));
+			user.setCountry(jObj.getString("country"));
+			friends.add(user);
+		}
+		return friends;
 	}
 	public static List<String> parseTopfansNames(String url) throws JSONException {
 
@@ -133,9 +153,6 @@ public class LastFmAccess {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		System.out.println("content");
-		System.out.println(content);
 		JSONObject json = new JSONObject(content);
 		JSONObject jsonTracks=json.getJSONObject("topfans");
 		JSONArray jsonItems=jsonTracks.getJSONArray("user");
@@ -147,6 +164,5 @@ public class LastFmAccess {
 		}
 		return topFansNames;
 	}
+	
 }
-
-
