@@ -28,9 +28,10 @@ public class LastFmAccess {
 	public static final String API_SECRET="69e7bd280d426aa0bb1aa8b807e28f0a";
 	
 	
-	public static String getQueryStringForTrack(String method,String track,String apikey) throws UnsupportedEncodingException{
+	public static String getQueryStringForTrack(String method,String artist,String track) throws UnsupportedEncodingException{
 		String query="http://ws.audioscrobbler.com/2.0/?method="+method;
-	    query+="&track=" + URLEncoder.encode(track,"utf-8");
+		query+="&artist="+URLEncoder.encode(artist.toLowerCase(),"utf-8");
+	    query+="&track=" + URLEncoder.encode(track.toLowerCase(),"utf-8");
 	    query+="&api_key="+API_KEY+"&format=json";
 	    return query;
 	}
@@ -97,9 +98,54 @@ public class LastFmAccess {
 			track.setMbid(jObj.getString("mbid"));
 			track.setName(jObj.getString("name"));
 			track.setUrl(jObj.getString("url"));
+			JSONObject artist=jObj.getJSONObject("artist");
+			track.setArtist(artist.getString("name"));
 			tracks.add(track);
 		}
 		return tracks;
+	}
+	public static User parseUserInfo(String url){
+		String content = null;
+	    try {
+			content=getContentFromUrl(url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    User user=new User();
+		System.out.println("content");
+		System.out.println(content);
+		JSONObject json = new JSONObject(content);
+		JSONObject jsonUser=json.getJSONObject("user");
+		//user.setId(jsonUser.getLong("id"));
+		user.setName(jsonUser.getString("name"));
+		user.setUrl(jsonUser.getString("url"));
+		user.setCountry(jsonUser.getString("country"));
+		return user;
+	}
+	public static List<String> parseTopfansNames(String url) throws JSONException {
+
+		List<String> topFansNames=new ArrayList<String>();
+	    String content = null;
+	    try {
+			content=getContentFromUrl(url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("content");
+		System.out.println(content);
+		JSONObject json = new JSONObject(content);
+		JSONObject jsonTracks=json.getJSONObject("topfans");
+		JSONArray jsonItems=jsonTracks.getJSONArray("user");
+		for (int i = 0; i < jsonItems.length(); i++) {
+			JSONObject jObj = (JSONObject) jsonItems.get(i);
+			String username=jObj.getString("name");
+			topFansNames.add(username);
+			
+		}
+		return topFansNames;
 	}
 }
 

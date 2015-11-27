@@ -18,7 +18,19 @@ public class TestMain {
     	user.setName("RJ");
     	List<Track> tracks=crawler.getTrackForUser(user);
     	for (Track track : tracks) {
-			System.out.println(track.getName());
+			System.out.println(track);
 		}
+		
+    	user=crawler.getUserInfo("RJ");
+    	System.out.println(user);
+    	/*
+    	Track track=new Track();
+    	track.setArtist("Cher");
+    	track.setName("Believe");
+    	List<User> users=crawler.getUsersForTrack(track);
+    	for (User user : users) {
+			System.out.println(user.getName()+" "+user.getCountry());
+		}
+		*/
     }
 }
