@@ -41,7 +41,19 @@ public class TestMain {
     	for (User user2 : friends) {
 			System.out.println(user2);
 		}
-		*/
+		
     	crawler.crawlUsers(user);
+    	
+    	List<Track> loved=crawler.getLovedTracksForUser(user);
+    	for (Track track : loved) {
+			System.out.println(track);
+		}*/
+    	Track track=new Track();
+    	track.setArtist("Cher");
+    	track.setName("Believe");
+    	List<Track> similar=crawler.getSimilarTracks(track);
+    	for (Track track2 : similar) {
+			System.out.println(track2);
+		}
     }
 }

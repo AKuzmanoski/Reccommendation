@@ -9,11 +9,14 @@ public interface CrawlerInterface {
 	
 	public void crawlUsers(User user);
 	
-	public List<Track> getTracksForUser(User user);
+	public List<Track> getTopTracksForUser(User user);
+	
+	public List<Track> getLovedTracksForUser(User user);
 	
 	public User getUserInfo(String username);
-    
 	
+	public List<Track> getSimilarTracks(Track track);
+    
 	
 
 }

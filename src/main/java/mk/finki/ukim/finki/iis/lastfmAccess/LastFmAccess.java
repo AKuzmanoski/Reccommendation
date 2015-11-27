@@ -76,9 +76,8 @@ public class LastFmAccess {
 		}
 		return null;
 	}
-	public static List<Track> parseTopTracks(String url) throws JSONException {
-
-	    String content = null;
+	public static List<Track> parseTracks(String type,String url){
+		String content = null;
 	    try {
 			content=getContentFromUrl(url);
 		} catch (Exception e) {
@@ -88,20 +87,27 @@ public class LastFmAccess {
 
 		List<Track> tracks = new ArrayList<Track>();
 		JSONObject json = new JSONObject(content);
-		JSONObject jsonTracks=json.getJSONObject("toptracks");
+		JSONObject jsonTracks=json.getJSONObject(type);
 		JSONArray jsonItems=jsonTracks.getJSONArray("track");
 		for (int i = 0; i < jsonItems.length(); i++) {
 			JSONObject jObj = (JSONObject) jsonItems.get(i);
 			Track track=new Track();
-			track.setMbid(jObj.getString("mbid"));
-			track.setName(jObj.getString("name"));
-			track.setUrl(jObj.getString("url"));
+			if(jObj.has("mbid")){
+				track.setMbid(jObj.getString("mbid"));
+			}
+			if(jObj.has("name")){
+				track.setName(jObj.getString("name"));
+			}
+			if(jObj.has("url")){
+				track.setUrl(jObj.getString("url"));
+			}
 			JSONObject artist=jObj.getJSONObject("artist");
 			track.setArtist(artist.getString("name"));
 			tracks.add(track);
 		}
 		return tracks;
 	}
+	
 	public static User parseUserInfo(String url){
 		String content = null;
 	    try {

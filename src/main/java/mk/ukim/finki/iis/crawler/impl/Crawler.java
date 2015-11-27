@@ -14,14 +14,8 @@ import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 
 public class Crawler implements CrawlerInterface{
-	
 
-	
-	public static void main(String[] args){
-		
-	}
-
-	public List<Track> getTracksForUser(User user) {
+	public List<Track> getTopTracksForUser(User user) {
 		String query=null;
 		try {
 			query=LastFmAccess.getQueryStringForUser("user.gettoptracks", user.getName());
@@ -29,7 +23,7 @@ public class Crawler implements CrawlerInterface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List<Track> tracks=LastFmAccess.parseTopTracks(query);
+		List<Track> tracks=LastFmAccess.parseTracks("toptracks",query);
 		
 		return tracks;
 	}
@@ -71,5 +65,31 @@ public class Crawler implements CrawlerInterface{
 				usersQueue.add(friend);				
   		   }			
 		}		
+	}
+
+	public List<Track> getLovedTracksForUser(User user) {
+		String query=null;
+		try {
+			query=LastFmAccess.getQueryStringForUser("user.getlovedtracks", user.getName());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Track> tracks=LastFmAccess.parseTracks("lovedtracks",query);
+		
+		return tracks;
+	}
+
+	public List<Track> getSimilarTracks(Track track) {
+		String query=null;
+		try {
+			query=LastFmAccess.getQueryStringForTrack("track.getsimilar",track.getArtist(),track.getName());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Track> tracks=LastFmAccess.parseTracks("similartracks",query);
+		
+		return tracks;
 	}
 }
