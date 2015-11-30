@@ -1,11 +1,20 @@
 package mk.ukim.finki.iis.model;
 
-public class Track {
-	
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "songs")
+public class Track extends BaseEntity {
+	@Column(name = "lastfm_id")
 	private String mbid;
 	private String name;
 	private String url;
 	private String artist;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "track")
+	private List<CountryHasTack> countries;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "track")
+	private List<UserListensTrack> listeners;
 	
 	public Track(){
 		

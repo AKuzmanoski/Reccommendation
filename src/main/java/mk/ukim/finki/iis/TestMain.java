@@ -9,12 +9,16 @@ import mk.ukim.finki.iis.crawler.impl.Crawler;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 /**
  * Created by User on 11/26/2015.
  */
 public class TestMain {
+	@PersistenceContext
+	private EntityManager em;
     public static void main(String[] args) {
-
     	CrawlerInterface crawler=new Crawler();
     	
     	User user=new User();

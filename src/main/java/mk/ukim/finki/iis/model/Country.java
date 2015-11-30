@@ -1,48 +1,50 @@
 package mk.ukim.finki.iis.model;
 
-public class Country {
-	
-	private Long id;
-	private String countryCode;
-	private String name;
-	
-	public Country(){
-		
-	}
-	public Country(Long id, String countryCode, String name) {
-		super();
-		this.id = id;
-		this.countryCode = countryCode;
-		this.name = name;
-	}
-	
-	
-	public Long getId() {
-		return id;
-	}
+import javax.persistence.*;
+import java.util.List;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+@Entity
+@Table(name = "countries")
+public class Country extends BaseEntity {
+    @Column(name = "country_code")
+    private String countryCode;
+    private String name;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+    private List<CountryHasTack> listenedSongs;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+    private List<User> users;
 
-	public String getCountryCode() {
-		return countryCode;
-	}
+    public Country() {
 
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Country(String countryCode, String name) {
+        super();
+        this.countryCode = countryCode;
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public List<CountryHasTack> getListenedSongs() {
+        return listenedSongs;
+    }
 
-	
-	
-	
+    public List<User> getUsers() {
+        return users;
+    }
 
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
