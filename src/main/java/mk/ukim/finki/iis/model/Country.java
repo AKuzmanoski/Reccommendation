@@ -9,10 +9,6 @@ public class Country extends BaseEntity {
     @Column(name = "country_code")
     private String countryCode;
     private String name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-    private List<CountryHasTack> listenedSongs;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-    private List<User> users;
 
     public Country() {
 
@@ -22,14 +18,6 @@ public class Country extends BaseEntity {
         super();
         this.countryCode = countryCode;
         this.name = name;
-    }
-
-    public List<CountryHasTack> getListenedSongs() {
-        return listenedSongs;
-    }
-
-    public List<User> getUsers() {
-        return users;
     }
 
     public String getCountryCode() {

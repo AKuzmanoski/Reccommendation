@@ -9,10 +9,8 @@ import javax.persistence.*;
 @Table(name = "users_songs")
 public class UserListensTrack extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @Column(name = "user_id")
     private User user;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @Column(name = "song_id")
     private Track track;
     @Column(name = "play_count")
     private Long playCount;

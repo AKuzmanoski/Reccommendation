@@ -24,4 +24,20 @@ public class BaseEntity {
     public void setEntityId(Long entityId) {
         this.entityId = entityId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BaseEntity that = (BaseEntity) o;
+
+        return !(getEntityId() != null ? !getEntityId().equals(that.getEntityId()) : that.getEntityId() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getEntityId() != null ? getEntityId().hashCode() : 0;
+    }
 }

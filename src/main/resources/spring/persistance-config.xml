@@ -51,5 +51,5 @@
         hierarchy). -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-    <context:component-scan base-package="mk.ukim.finki.iis.model"/>
+    <context:component-scan base-package="mk.ukim.finki.iis.persistance"/>
 </beans>

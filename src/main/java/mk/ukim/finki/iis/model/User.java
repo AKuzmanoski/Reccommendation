@@ -10,8 +10,6 @@ public class User extends BaseEntity {
     private String url;
     @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<UserListensTrack> listenedSongs;
 
     public User() {
 

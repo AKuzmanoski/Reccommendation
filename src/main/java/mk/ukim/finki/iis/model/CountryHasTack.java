@@ -9,10 +9,8 @@ import javax.persistence.*;
 @Table(name = "countries_songs")
 public class CountryHasTack extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @Column(name = "country_id")
     private Country country;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @Column(name = "song_id")
     private Track track;
     @Column(name = "play_count")
     private Long playCount;
