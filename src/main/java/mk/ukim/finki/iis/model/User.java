@@ -10,17 +10,20 @@ public class User extends BaseEntity {
     private String url;
     @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
+    @Column(name = "lastfm_id")
+    private Long lastFMId;
 
     public User() {
 
     }
 
-    public User(String name, String url, String country) {
+    public User(String name, String url, Country country, Long lastFMId) {
         super();
         this.name = name;
         this.url = url;
         this.country = new Country();
-        setCountry(country);
+        this.country = country;
+        this.lastFMId = lastFMId;
     }
 
     public String getName() {
@@ -39,12 +42,12 @@ public class User extends BaseEntity {
         this.url = url;
     }
 
-    public String getCountry() {
-        return country.getName();
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountry(String country) {
-        this.country = new Country(country, country);
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override
@@ -53,5 +56,11 @@ public class User extends BaseEntity {
                 + "]";
     }
 
+    public Long getLastFMId() {
+        return lastFMId;
+    }
 
+    public void setLastFMId(Long lastFMId) {
+        this.lastFMId = lastFMId;
+    }
 }

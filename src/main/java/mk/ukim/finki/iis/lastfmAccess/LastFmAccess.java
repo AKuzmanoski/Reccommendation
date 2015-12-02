@@ -1,4 +1,4 @@
-package mk.finki.ukim.finki.iis.lastfmAccess;
+package mk.ukim.finki.iis.lastfmAccess;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import mk.ukim.finki.iis.model.Country;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -93,7 +94,7 @@ public class LastFmAccess {
 			JSONObject jObj = (JSONObject) jsonItems.get(i);
 			Track track=new Track();
 			if(jObj.has("mbid")){
-				track.setMbid(jObj.getString("mbid"));
+				track.setMbid(Long.parseLong(jObj.getString("mbid")));
 			}
 			if(jObj.has("name")){
 				track.setName(jObj.getString("name"));
@@ -122,7 +123,9 @@ public class LastFmAccess {
 		//user.setId(jsonUser.getLong("id"));
 		user.setName(jsonUser.getString("name"));
 		user.setUrl(jsonUser.getString("url"));
-		user.setCountry(jsonUser.getString("country"));
+		String countryName = jsonUser.getString("country");
+		Country country = new Country(countryName, countryName);
+		user.setCountry(country);
 		return user;
 	}
 	public static List<User> parseUserFriends(String url) throws JSONException {
@@ -144,7 +147,9 @@ public class LastFmAccess {
 			User user=new User();
 			user.setName(jObj.getString("name"));
 			user.setUrl(jObj.getString("url"));
-			user.setCountry(jObj.getString("country"));
+			String countryName = jObj.getString("country");
+			Country country = new Country(countryName, countryName);
+			user.setCountry(country);
 			friends.add(user);
 		}
 		return friends;

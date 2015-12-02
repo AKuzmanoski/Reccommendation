@@ -1,14 +1,11 @@
 package mk.ukim.finki.iis.crawler.impl;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import mk.finki.ukim.finki.iis.lastfmAccess.LastFmAccess;
+import mk.ukim.finki.iis.lastfmAccess.LastFmAccess;
 import mk.ukim.finki.iis.crawler.CrawlerInterface;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;

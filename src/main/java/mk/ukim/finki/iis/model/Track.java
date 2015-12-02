@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Table(name = "songs")
 public class Track extends BaseEntity {
     @Column(name = "lastfm_id")
-    private String mbid;
+    private Long mbid;
     private String name;
     private String url;
     private String artist;
@@ -17,7 +17,7 @@ public class Track extends BaseEntity {
 
     }
 
-    public Track(String mbid, String name, String url, String artist) {
+    public Track(Long mbid, String name, String url, String artist) {
         super();
         this.mbid = mbid;
         this.name = name;
@@ -25,11 +25,11 @@ public class Track extends BaseEntity {
         this.artist = artist;
     }
 
-    public String getMbid() {
+    public Long getMbid() {
         return mbid;
     }
 
-    public void setMbid(String mbid) {
+    public void setMbid(Long mbid) {
         this.mbid = mbid;
     }
 
@@ -62,6 +62,4 @@ public class Track extends BaseEntity {
         return "Track [mbid=" + mbid + ", name=" + name + ", url=" + url
                 + ", artist=" + artist + "]";
     }
-
-
 }

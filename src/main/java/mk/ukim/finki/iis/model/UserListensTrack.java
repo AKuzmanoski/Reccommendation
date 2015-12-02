@@ -48,4 +48,8 @@ public class UserListensTrack extends BaseEntity {
     public void setTrack(Track track) {
         this.track = track;
     }
+
+    public void addPlayCount(Long playCount) {
+        this.playCount += playCount;
+    }
 }

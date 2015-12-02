@@ -18,6 +18,10 @@ public interface MainService {
 
     User insertUser(User user);
 
+    void userListened(User user, Track track, Long playCount);
+
+    void userListened(User user, Track track);
+
     Country insertCountry(Country country);
 
     void crawlLastFm(int numberOfSongs, int numberOfUsers);

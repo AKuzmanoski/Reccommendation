@@ -3,11 +3,12 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset" name="Spring Application Context 2" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/spring/mvc-core-config.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/spring/persistance-config.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/spring/mvc-view-config.xml</file>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <dependency>web dispatcherServlet servlet context</dependency>
           <file>file://$MODULE_DIR$/src/main/resources/spring/bussiness-config.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/mvc-core-config.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/mvc-view-config.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/persistance-config.xml</file>
         </fileset>
       </configuration>
     </facet>

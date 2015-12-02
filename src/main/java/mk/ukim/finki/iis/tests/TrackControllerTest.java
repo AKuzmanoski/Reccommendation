@@ -1,4 +1,4 @@
-package mk.tests;
+package mk.ukim.finki.iis.tests;
 
 public class TrackControllerTest {
     /*@Test

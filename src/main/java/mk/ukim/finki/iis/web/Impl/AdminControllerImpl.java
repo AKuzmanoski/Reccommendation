@@ -21,8 +21,10 @@ public class AdminControllerImpl {
     }
 
     @RequestMapping(value = "/admin/crawl", method = RequestMethod.POST)
-    public String crawl(@RequestParam Integer numberOfSongs, @RequestParam Integer numberOfUsers) {
-        service.crawlLastFm(numberOfSongs, numberOfUsers);
+    public String crawl(@RequestParam String numberOfSongs, @RequestParam String numberOfUsers) {
+        Integer numOfSongs = Integer.parseInt(numberOfSongs);
+        Integer numOfUsers = Integer.parseInt(numberOfUsers);
+        service.crawlLastFm(numOfSongs, numOfUsers);
         return "adminHome";
     }
 }

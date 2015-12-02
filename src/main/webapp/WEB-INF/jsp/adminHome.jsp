@@ -11,7 +11,7 @@
     <title></title>
 </head>
 <body>
-  <form action="/admin/crawl" method="post">
+  <form action="admin/crawl" method="post">
     <table>
       <tr>
         <td>Number of Songs</td>

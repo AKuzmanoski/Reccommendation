@@ -52,4 +52,12 @@ public class MainServiceImpl implements MainService {
         // Ovaa klasa ke glumi fasada koja ke gi definira site metodi od celata aplikacija.
 
     }
+
+    public void userListened(User user, Track track) {
+        userListened(user, track, 1L);
+    }
+
+    public void userListened(User user, Track track, Long playCount) {
+        userService.userListened(user, track, playCount);
+    }
 }
