@@ -4,15 +4,20 @@ import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 
-/**
- * Created by User on 12/1/2015.
- */
+import java.util.List;
+
 public interface MainService {
     Track getTrackById(Long id);
 
+    Track getTrackByLastFmId(Long id);
+
     User getUserById(Long id);
 
+    User getUserByLastFmId(Long id);
+
     Country getCountryById(Long id);
+
+    Country getCountryByName(String name);
 
     Track insertTrack(Track track);
 
@@ -25,4 +30,8 @@ public interface MainService {
     Country insertCountry(Country country);
 
     void crawlLastFm(int numberOfSongs, int numberOfUsers);
+
+    List<Country> recommendCountries(Track track);
+
+    User login(String username, String password);
 }

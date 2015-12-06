@@ -9,4 +9,6 @@ public interface TrackService {
     Track getTrackById(Long id);
 
     Track insertTrack(Track track);
+
+    Track getTrackByLastFmId(Long id);
 }

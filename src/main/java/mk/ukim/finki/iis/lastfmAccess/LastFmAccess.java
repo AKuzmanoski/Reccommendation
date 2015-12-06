@@ -124,7 +124,7 @@ public class LastFmAccess {
 		user.setName(jsonUser.getString("name"));
 		user.setUrl(jsonUser.getString("url"));
 		String countryName = jsonUser.getString("country");
-		Country country = new Country(countryName, countryName);
+		Country country = new Country(countryName);
 		user.setCountry(country);
 		return user;
 	}
@@ -148,7 +148,7 @@ public class LastFmAccess {
 			user.setName(jObj.getString("name"));
 			user.setUrl(jObj.getString("url"));
 			String countryName = jObj.getString("country");
-			Country country = new Country(countryName, countryName);
+			Country country = new Country(countryName);
 			user.setCountry(country);
 			friends.add(user);
 		}

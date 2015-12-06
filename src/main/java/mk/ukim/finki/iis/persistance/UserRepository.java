@@ -13,4 +13,6 @@ public interface UserRepository {
     User insertUser(User user);
 
     UserListensTrack userListens(User user, Track track, Long playCount);
+
+    User getUserByLastFmId(Long id);
 }

@@ -26,4 +26,8 @@ public class CountryServiceImpl implements CountryService {
     public void userListened(Country country, Track track, Long playCount) {
         countryRepository.userListens(country, track, playCount);
     }
+
+    public Country getCountryByName(String name) {
+        return countryRepository.getCountryByName(name);
+    }
 }

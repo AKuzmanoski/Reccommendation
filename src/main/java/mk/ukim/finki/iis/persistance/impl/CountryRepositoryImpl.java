@@ -5,6 +5,7 @@ import mk.ukim.finki.iis.model.CountryHasTack;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.persistance.BaseRepository;
 import mk.ukim.finki.iis.persistance.CountryRepository;
+import mk.ukim.finki.iis.persistance.helper.CountryByNamePredicateBuilder;
 import mk.ukim.finki.iis.persistance.helper.CountryHasTrackPredicateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,8 +25,13 @@ public class CountryRepositoryImpl implements CountryRepository {
         return baseRepository.getById(Country.class, id);
     }
 
+    @Transactional
     public Country insertCountry(Country country) {
-        return baseRepository.saveOrUpdate(country);
+        Country persistedCountry = exists(country);
+        if (persistedCountry != null)
+            return persistedCountry;
+        else
+            return baseRepository.saveOrUpdate(country);
     }
 
     @Transactional
@@ -47,5 +53,16 @@ public class CountryRepositoryImpl implements CountryRepository {
         } else {
             return null;
         }
+    }
+
+    public Country exists(Country country) {
+        return getCountryByName(country.getName());
+    }
+
+    public Country getCountryByName(String name) {
+        List<Country> countries = baseRepository.find(Country.class, new CountryByNamePredicateBuilder<Country>(name));
+        if (countries.size() > 0)
+            return countries.get(0);
+        else return null;
     }
 }

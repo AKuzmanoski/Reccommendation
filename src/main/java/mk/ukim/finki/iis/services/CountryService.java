@@ -12,4 +12,6 @@ public interface CountryService {
     Country insertCountry(Country country);
 
     void userListened(Country country, Track track, Long playCount);
+
+    Country getCountryByName(String name);
 }

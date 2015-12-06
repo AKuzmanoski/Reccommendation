@@ -10,6 +10,8 @@ import mk.ukim.finki.iis.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by User on 12/1/2015.
  */
@@ -59,5 +61,27 @@ public class MainServiceImpl implements MainService {
 
     public void userListened(User user, Track track, Long playCount) {
         userService.userListened(user, track, playCount);
+    }
+
+    public User login(String username, String password) {
+        // TODO implementiraj logika za najavuvanje
+        return null;
+    }
+
+    public List<Country> recommendCountries(Track track) {
+        // TODO dadi gi preporacanite drzavi za odredena pesna. (Implementiraj)
+        return null;
+    }
+
+    public Country getCountryByName(String name) {
+        return countryService.getCountryByName(name);
+    }
+
+    public Track getTrackByLastFmId(Long id) {
+        return trackService.getTrackByLastFmId(id);
+    }
+
+    public User getUserByLastFmId(Long id) {
+        return userService.getUserByLastFmId(id);
     }
 }

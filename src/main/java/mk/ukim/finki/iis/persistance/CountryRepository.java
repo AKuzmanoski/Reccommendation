@@ -14,4 +14,6 @@ public interface CountryRepository {
     Country insertCountry(Country country);
 
     CountryHasTack userListens(Country country, Track track, Long playCount);
+
+    Country getCountryByName(String name);
 }

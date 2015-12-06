@@ -1,15 +1,11 @@
 package mk.ukim.finki.iis;
 
-import mk.ukim.finki.iis.crawler.CrawlerInterface;
-import mk.ukim.finki.iis.crawler.impl.Crawler;
 import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.services.MainService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
 
 /**
  * Created by User on 11/26/2015.
@@ -28,7 +24,7 @@ public class TestMain {
      * @see MainService#crawlLastFm(int, int)
      */
     private static void crawl(int numberOfSongs, int numberOfUsers) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring/bussiness-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring/business-config.xml");
         MainService mainService = (MainService) context.getBean("mainServiceImpl");
         mainService.crawlLastFm(numberOfSongs, numberOfUsers);
     }
@@ -37,15 +33,12 @@ public class TestMain {
      * Ova vcituvanje e najdobro da bide vo MainService. Vidi TO DO ti imam napisano
      */
     private static void example() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring/bussiness-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring/business-config.xml");
         MainService mainService = (MainService) context.getBean("mainServiceImpl");
 
-        Country country = new Country("MK", "Macedonia");
-
-        country = mainService.insertCountry(country);
-
-        User user = new User("Aleksandar Kuzmanoski", "https://www.facebook.com/aleksandar.kuzmanoskii", country, 123L);
-        Track track = new Track(115523L, "Hello", "https://www.youtube.com/watch?v=YQHsXMglC9A", "Adele");
+        Country country = new Country("Macedonia");
+        User user = new User("Aleksandar Kuzmanoski", "https://www.facebook.com/aleksandar.kuzmanoskii", country, 12345L);
+        Track track = new Track(115523456654L, "Mello", "https://www.youtube.com/watch?v=YQHsXMglC9A", "Adele");
 
         user = mainService.insertUser(user);
         track = mainService.insertTrack(track);

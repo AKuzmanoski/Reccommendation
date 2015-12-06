@@ -21,4 +21,8 @@ public class TrackServiceImpl implements TrackService {
     public Track insertTrack(Track track) {
         return trackRepository.insertTrack(track);
     }
+
+    public Track getTrackByLastFmId(Long id) {
+        return trackRepository.getTrackByLastFmId(id);
+    }
 }
