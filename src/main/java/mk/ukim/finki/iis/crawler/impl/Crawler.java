@@ -5,11 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.springframework.stereotype.Component;
+
 import mk.ukim.finki.iis.lastfmAccess.LastFmAccess;
 import mk.ukim.finki.iis.crawler.CrawlerInterface;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 
+@Component
 public class Crawler implements CrawlerInterface{
 
 	public List<Track> getTopTracksForUser(User user) {

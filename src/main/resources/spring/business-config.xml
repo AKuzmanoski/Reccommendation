@@ -6,4 +6,5 @@
        <import resource="persistance-config.xml"/>
 
        <context:component-scan base-package="mk.ukim.finki.iis.services"/>
+       <context:component-scan base-package="mk.ukim.finki.iis.crawler"/>
 </beans>

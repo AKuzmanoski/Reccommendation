@@ -4,9 +4,11 @@ import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.services.CountryService;
+import mk.ukim.finki.iis.services.CrawlerService;
 import mk.ukim.finki.iis.services.MainService;
 import mk.ukim.finki.iis.services.TrackService;
 import mk.ukim.finki.iis.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class MainServiceImpl implements MainService {
     private UserService userService;
     @Autowired
     private CountryService countryService;
+    @Autowired
+    private CrawlerService crawlerService;
 
     public Track getTrackById(Long id) {
         return trackService.getTrackById(id);
@@ -52,7 +56,7 @@ public class MainServiceImpl implements MainService {
         // TODO implementiraj go ovoj metod za krolanje.
         // Mislam deka bi bilo dobro implementacijata da ja izvadis vo drug servis za da ne se usloznuva ovaa klasa.
         // Ovaa klasa ke glumi fasada koja ke gi definira site metodi od celata aplikacija.
-
+    	crawlerService.crawlUsers(numberOfUsers);
     }
 
     public void userListened(User user, Track track) {

@@ -120,7 +120,9 @@ public class LastFmAccess {
 	    User user=new User();
 		JSONObject json = new JSONObject(content);
 		JSONObject jsonUser=json.getJSONObject("user");
-		//user.setId(jsonUser.getLong("id"));
+		if(jsonUser.has("id")){
+			user.setLastFMId(jsonUser.getLong("id"));
+		}
 		user.setName(jsonUser.getString("name"));
 		user.setUrl(jsonUser.getString("url"));
 		String countryName = jsonUser.getString("country");
