@@ -6,6 +6,7 @@ import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.persistance.BaseRepository;
 import mk.ukim.finki.iis.persistance.CountryRepository;
 import mk.ukim.finki.iis.persistance.helper.CountryByNamePredicateBuilder;
+import mk.ukim.finki.iis.persistance.helper.CountryHasTrackPredicateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,9 +45,9 @@ public class CountryRepositoryImpl implements CountryRepository {
     }
 
     private CountryHasTack getCountryHasTrack(Country country, Track track) {
-        List<CountryHasTack> list = null; /* =
+        List<CountryHasTack> list =
                baseRepository.find(CountryHasTack.class,
-                        new CountryHasTrackPredicateBuilder<CountryHasTack>(country, track));*/
+                        new CountryHasTrackPredicateBuilder(country, track));
         if (list.size() > 0) {
             return list.get(0);
         } else {
