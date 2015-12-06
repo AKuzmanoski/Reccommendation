@@ -6,6 +6,7 @@ import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.persistance.UserRepository;
 import mk.ukim.finki.iis.services.CountryService;
 import mk.ukim.finki.iis.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,9 @@ public class UserServiceImpl implements UserService {
         userRepository.userListens(user, track, playCount);
     }
 
-    public User getUserByLastFmId(Long id) {
-        return userRepository.getUserByLastFmId(id);
-    }
+	public User getUserByUsername(String username) {
+		return userRepository.getUserByUsername(username);
+	}
+
+  
 }

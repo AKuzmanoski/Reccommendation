@@ -7,7 +7,8 @@ import mk.ukim.finki.iis.model.UserListensTrack;
 import mk.ukim.finki.iis.persistance.BaseRepository;
 import mk.ukim.finki.iis.persistance.CountryRepository;
 import mk.ukim.finki.iis.persistance.UserRepository;
-import mk.ukim.finki.iis.persistance.helper.UserByLastFmIdPredicateBuilder;
+import mk.ukim.finki.iis.persistance.helper.UserByUsernamePredicateBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,13 +47,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private User exists(User user) {
-        return getUserByLastFmId(user.getLastFMId());
+        return getUserByUsername(user.getName());
     }
 
-    public User getUserByLastFmId(Long id) {
-        List<User> users = baseRepository.find(User.class, new UserByLastFmIdPredicateBuilder<User>(id));
+	public User getUserByUsername(String username) {
+		List<User> users = baseRepository.find(User.class, new UserByUsernamePredicateBuilder<User>(username));
         if (users.size() > 0)
             return users.get(0);
         return null;
-    }
+	}
+
 }

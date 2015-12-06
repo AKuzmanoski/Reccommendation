@@ -85,7 +85,8 @@ public class MainServiceImpl implements MainService {
         return trackService.getTrackByLastFmId(id);
     }
 
-    public User getUserByLastFmId(Long id) {
-        return userService.getUserByLastFmId(id);
-    }
+
+	public User getUserByUsername(String username) {
+		return userService.getUserByUsername(username);
+	}
 }

@@ -14,5 +14,5 @@ public interface UserRepository {
 
     UserListensTrack userListens(User user, Track track, Long playCount);
 
-    User getUserByLastFmId(Long id);
+    User getUserByUsername(String username);
 }

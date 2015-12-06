@@ -8,14 +8,14 @@ import javax.persistence.criteria.Root;
 /**
  * Created by User on 12/2/2015.
  */
-public class UserByLastFmIdPredicateBuilder<T> implements PredicateBuilder<T> {
-    private Long id;
+public class UserByUsernamePredicateBuilder<T> implements PredicateBuilder<T> {
+    private String name;
 
-    public UserByLastFmIdPredicateBuilder(Long id) {
-        this.id = id;
+    public UserByUsernamePredicateBuilder(String name) {
+        this.name = name;
     }
 
     public Predicate toPredicate(CriteriaBuilder cb, CriteriaQuery<T> cq, Root<T> root) {
-        return cb.equal(root.get("lastFMId"), id);
+        return cb.equal(root.get("name"), name);
     }
 }

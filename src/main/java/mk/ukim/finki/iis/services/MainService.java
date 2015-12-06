@@ -13,7 +13,7 @@ public interface MainService {
 
     User getUserById(Long id);
 
-    User getUserByLastFmId(Long id);
+    User getUserByUsername(String username);
 
     Country getCountryById(Long id);
 

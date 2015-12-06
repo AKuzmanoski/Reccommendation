@@ -13,5 +13,5 @@ public interface UserService {
 
     public void userListened(User user, Track track, Long playCount);
 
-    User getUserByLastFmId(Long id);
+    User getUserByUsername(String username);
 }
