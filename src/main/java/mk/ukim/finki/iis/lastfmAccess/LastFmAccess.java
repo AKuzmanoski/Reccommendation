@@ -123,6 +123,10 @@ public class LastFmAccess {
 		if(jsonUser.has("id")){
 			user.setLastFMId(jsonUser.getLong("id"));
 		}
+
+		if(jsonUser.has("gender")){
+			user.setGender(jsonUser.getString("gender"));
+		}
 		user.setName(jsonUser.getString("name"));
 		user.setUrl(jsonUser.getString("url"));
 		String countryName = jsonUser.getString("country");

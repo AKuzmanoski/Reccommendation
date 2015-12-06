@@ -8,6 +8,7 @@ import java.util.List;
 public class User extends BaseEntity {
     private String name;
     private String url;
+    private String gender;
     @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
     @Column(name = "lastfm_id")
@@ -63,4 +64,12 @@ public class User extends BaseEntity {
     public void setLastFMId(Long lastFMId) {
         this.lastFMId = lastFMId;
     }
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+    
 }

@@ -50,7 +50,7 @@ public class CrawlerServiceImpl implements CrawlerService{
 			if(friends==null)continue;
 			for (User friend : friends) {
 				// TODO: if user not in database - add to db
-				userService.insertUser(user);
+				userService.insertUser(crawler.getUserInfo(friend.getName()));
 				usersQueue.add(friend);				
   		   }			
 		}	
