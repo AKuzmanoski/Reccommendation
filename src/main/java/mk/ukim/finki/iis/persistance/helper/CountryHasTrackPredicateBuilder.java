@@ -1,7 +1,6 @@
 package mk.ukim.finki.iis.persistance.helper;
 
 import mk.ukim.finki.iis.model.Country;
-import mk.ukim.finki.iis.model.CountryHasTack;
 import mk.ukim.finki.iis.model.Track;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,9 +9,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
- * Created by User on 12/6/2015.
+ * Created by User on 12/2/2015.
  */
-public class CountryHasTrackPredicateBuilder implements PredicateBuilder<CountryHasTack> {
+public class CountryHasTrackPredicateBuilder<T> implements PredicateBuilder<T> {
     private Country country;
     private Track track;
 
@@ -21,7 +20,7 @@ public class CountryHasTrackPredicateBuilder implements PredicateBuilder<Country
         this.track = track;
     }
 
-    public Predicate toPredicate(CriteriaBuilder cb, CriteriaQuery<CountryHasTack> cq, Root<CountryHasTack> root) {
+    public Predicate toPredicate(CriteriaBuilder cb, CriteriaQuery<T> cq, Root<T> root) {
         Predicate countryId = cb.equal(root.get("country"), country);
         Predicate trackId = cb.equal(root.get("track"), track);
         Predicate where = cb.and(countryId, trackId);
