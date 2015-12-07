@@ -32,7 +32,7 @@ public class CrawlerServiceImpl implements CrawlerService{
 		User startUser=new User();
 		startUser.setName("RJ");
 		crawlUsers(startUser);
-		
+
 	}
 
 	public void crawlTracks(List<User> users, int numberOfSongs) {
@@ -53,7 +53,7 @@ public class CrawlerServiceImpl implements CrawlerService{
 				userService.insertUser(crawler.getUserInfo(friend.getName()));
 				usersQueue.add(friend);				
   		   }			
-		}	
+		}
 	}
 
 }

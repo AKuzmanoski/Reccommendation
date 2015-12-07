@@ -48,6 +48,32 @@ public class BaseRepository {
         return query.getResultList();
     }
 
+    public <T> List<T> find(Class<T> type, PredicateBuilder<T> predicateBuilder, Integer maxResults) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+        final Root<T> root = criteriaQuery.from(type);
+
+        // add here security predicate (add it to the WHERE clause).
+
+        if (predicateBuilder != null)
+            criteriaQuery.where(predicateBuilder.toPredicate(criteriaBuilder, criteriaQuery, root));
+
+        TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        query.setMaxResults(maxResults);
+
+        return query.getResultList();
+    }
+
+    public <T> Long count(Class<T> type, PredicateBuilder<T> predicateBuilder) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<T> root = criteriaQuery.from(type);
+        criteriaQuery.select(criteriaBuilder.count(root));
+        if (predicateBuilder != null)
+            criteriaQuery.where(predicateBuilder.toPredicate(criteriaBuilder, null, root));
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
     private <T> Predicate getSecurityPredicate(Class<T> type) {
         return null;
     }

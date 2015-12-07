@@ -13,7 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestMain {
 
     public static void main(String[] args) {
-        crawl(1000, 1000);
+        crawl(100000000, 1000000000);
         example();
     }
 

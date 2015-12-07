@@ -4,6 +4,8 @@ import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.model.UserListensTrack;
 
+import java.util.List;
+
 /**
  * Created by User on 12/1/2015.
  */
@@ -15,4 +17,12 @@ public interface UserRepository {
     UserListensTrack userListens(User user, Track track, Long playCount);
 
     User getUserByUsername(String username);
+
+    List<User> getUsersForCrawl(int numberOfUsers);
+
+    Long insertUsers(List<User> users);
+
+    void setUsersCrawled(List<User> crawledUsers);
+
+    Long getNumberOfUsers();
 }

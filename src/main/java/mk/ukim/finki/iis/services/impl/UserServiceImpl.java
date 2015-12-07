@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by User on 12/1/2015.
  */
@@ -35,5 +37,19 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getUserByUsername(username);
 	}
 
-  
+    public List<User> getUsersForCrawl(int numberOfUsers) {
+        return userRepository.getUsersForCrawl(numberOfUsers);
+    }
+
+    public void setUsersCrawled(List<User> crawledUsers) {
+        userRepository.setUsersCrawled(crawledUsers);
+    }
+
+    public Long insertUsers(List<User> users) {
+        return userRepository.insertUsers(users);
+    }
+
+    public Long getNumberOfUsers() {
+        return userRepository.getNumberOfUsers();
+    }
 }

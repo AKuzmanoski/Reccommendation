@@ -10,6 +10,7 @@ import mk.ukim.finki.iis.services.TrackService;
 import mk.ukim.finki.iis.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class MainServiceImpl implements MainService {
     @Autowired
     private CountryService countryService;
     @Autowired
+    @Qualifier(value = "threadedCrawlerServiceImpl")
     private CrawlerService crawlerService;
 
     public Track getTrackById(Long id) {

@@ -1,7 +1,6 @@
 package mk.ukim.finki.iis.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,11 +10,16 @@ public class User extends BaseEntity {
     private String gender;
     @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
-    @Column(name = "lastfm_id")
+    @Column(name = "lastfm_id", unique = true)
     private Long lastFMId;
+    private Boolean friendListCrawled;
 
     public User() {
+        friendListCrawled = false;
+    }
 
+    public User(String name) {
+        this.name = name;
     }
 
     public User(String name, String url, Country country, Long lastFMId) {
@@ -64,12 +68,16 @@ public class User extends BaseEntity {
     public void setLastFMId(Long lastFMId) {
         this.lastFMId = lastFMId;
     }
-	public String getGender() {
-		return gender;
-	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-    
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setFriendListCrawled(Boolean friendListCrawled) {
+        this.friendListCrawled = friendListCrawled;
+    }
 }

@@ -7,6 +7,7 @@ import mk.ukim.finki.iis.model.UserListensTrack;
 import mk.ukim.finki.iis.persistance.BaseRepository;
 import mk.ukim.finki.iis.persistance.CountryRepository;
 import mk.ukim.finki.iis.persistance.UserRepository;
+import mk.ukim.finki.iis.persistance.helper.NonCrawledUsersPredicateBuilder;
 import mk.ukim.finki.iis.persistance.helper.UserByUsernamePredicateBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +58,28 @@ public class UserRepositoryImpl implements UserRepository {
         return null;
 	}
 
+    public List<User> getUsersForCrawl(int numberOfUsers) {
+        return baseRepository.find(User.class, new NonCrawledUsersPredicateBuilder(), numberOfUsers);
+    }
+
+    @Transactional
+    public Long insertUsers(List<User> users) {
+        // TODO optimize this function (check how long it takes)
+        for (User user : users)
+            this.insertUser(user);
+        return (long)users.size();
+    }
+
+    @Transactional
+    public void setUsersCrawled(List<User> crawledUsers) {
+        // TODO optimize this function to
+        for (User user : crawledUsers) {
+            user.setFriendListCrawled(true);
+            baseRepository.saveOrUpdate(user);
+        }
+    }
+
+    public Long getNumberOfUsers() {
+        return baseRepository.count(User.class, null);
+    }
 }
