@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by User on 12/7/2015.
@@ -20,7 +23,7 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler {
     /**
      * This constant indicates how many user friend lists will be crawled simultaneously.
      */
-    private static final int NUMBER_OF_THREADS = 100;
+    private static final int NUMBER_OF_THREADS = 200;
     /**
      * This number is read from database and indicates the number of currently crawled users.
      */
@@ -29,6 +32,15 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler {
      * If no users are crawled this user will be used for starting point.
      */
     private User startUser = new User("RJ");
+
+    Semaphore waitForThreads = new Semaphore(0);
+    Semaphore waitForDataAccess = new Semaphore(0);
+
+    private int crawledUsers = 0;
+
+    private Set<User> roundUsers = new HashSet<User>();
+
+    private int numberOfActiveThreads = 0;
 
     @Autowired
     private CrawlerInterface crawler;
@@ -40,48 +52,63 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler {
     }
 
     public void crawlLastFm(int numberOfSongs, int numberOfUsers) {
+        numberOfCrawledUsers = userService.getNumberOfUsers();
+        List<User> usersForCrawling;
+        while (true) {
+            usersForCrawling = getUsersForCrawl(3*NUMBER_OF_THREADS - numberOfActiveThreads);
+            numberOfActiveThreads += usersForCrawling.size();
+            int numberOfThreadsToWait = Math.min(numberOfActiveThreads, NUMBER_OF_THREADS);
+            if (getNumberOfCrawledUsers() > numberOfUsers || usersForCrawling.size() == 0)
+                break;
+            waitForDataAccess.release(numberOfThreadsToWait);
+            runThreadsForUsers(usersForCrawling);
+            try {
+                waitForThreads.acquire(numberOfThreadsToWait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            numberOfActiveThreads -= numberOfThreadsToWait;
+            numberOfCrawledUsers += userService.insertUsers(roundUsers);
+            userService.setUsersCrawled(usersForCrawling);
+            resetState();
+        }
+    }
 
+    public void runThreadsForUsers(List<User> users) {
+        for (User user : users) {
+            Thread thread = new FriendListCrawlerThread(user, this);
+            thread.start();
+        }
     }
 
     public void crawlTracks(List<User> users, int numberOfSongs) {
-
+        // TODO crawl tracks
     }
 
     public void crawlUsers(int numberOfUsers) {
-        numberOfCrawledUsers = userService.getNumberOfUsers();
-        List<User> usersForCrawling;
-        List<Thread> threads;
-        while (true) {
-            usersForCrawling = getUsersForCrawl();
-            if (getNumberOfCrawledUsers() > numberOfUsers || usersForCrawling.size() == 0)
-                break;
-            threads = new ArrayList<Thread>();
-            for (User user : getUsersForCrawl()) {
-                // TODO pusti tredovi tuka
-                Thread thread = new FriendListCrawlerThread(user, this);
-                threads.add(thread);
-                thread.start();
-            }
-            userService.setUsersCrawled(usersForCrawling);
-            for (Thread thread : threads) {
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+
+    }
+
+    private void resetState() {
+        roundUsers = new HashSet<User>();
+        crawledUsers = 0;
     }
 
     public void crawlFriendsForUser(User user) {
         List<User> friends = crawler.getUserFriends(user);
-        userService.insertUsers(friends);
+        try {
+            waitForDataAccess.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        addRoundUsers(friends);
+        waitForThreads.release();
     }
 
-    private List<User> getUsersForCrawl() {
+    private List<User> getUsersForCrawl(int numberOfUsers) {
         List<User> usersForCrawling = new ArrayList<User>();
         if (getNumberOfCrawledUsers() > 0)
-            usersForCrawling = userService.getUsersForCrawl(NUMBER_OF_THREADS);
+            usersForCrawling = userService.getUsersForCrawl(numberOfUsers);
         else {
             User user = saveUser(startUser);
             usersForCrawling.add(user);
@@ -96,5 +123,20 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler {
 
     private Long getNumberOfCrawledUsers() {
         return numberOfCrawledUsers;
+    }
+
+    public int getCrawledUsers() {
+        return crawledUsers;
+    }
+
+    synchronized
+    public void addCrawledUser() {
+        crawledUsers++;
+    }
+
+    synchronized
+    public void addRoundUsers(List<User> users) {
+        for (User user : users)
+            roundUsers.add(user);
     }
 }

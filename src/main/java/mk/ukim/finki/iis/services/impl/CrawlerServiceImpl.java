@@ -23,12 +23,10 @@ public class CrawlerServiceImpl implements CrawlerService{
 	private UserService userService;
 
 	public void crawlLastFm(int numberOfSongs, int numberOfUsers) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public void crawlUsers(int numberOfUsers) {
-		// TODO Auto-generated method stub
 		User startUser=new User();
 		startUser.setName("RJ");
 		crawlUsers(startUser);
@@ -36,7 +34,6 @@ public class CrawlerServiceImpl implements CrawlerService{
 	}
 
 	public void crawlTracks(List<User> users, int numberOfSongs) {
-		// TODO Auto-generated method stub
 		
 	}
 	

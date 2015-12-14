@@ -1,6 +1,5 @@
 package mk.ukim.finki.iis.services;
 
-import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 
@@ -15,10 +14,6 @@ public interface MainService {
 
     User getUserByUsername(String username);
 
-    Country getCountryById(Long id);
-
-    Country getCountryByName(String name);
-
     Track insertTrack(Track track);
 
     User insertUser(User user);
@@ -27,11 +22,9 @@ public interface MainService {
 
     void userListened(User user, Track track);
 
-    Country insertCountry(Country country);
-
     void crawlLastFm(int numberOfSongs, int numberOfUsers);
 
-    List<Country> recommendCountries(Track track);
-
     User login(String username, String password);
+
+    List<String> recommendCountries(Track track);
 }

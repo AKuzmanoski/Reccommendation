@@ -20,7 +20,6 @@ public class Crawler implements CrawlerInterface{
 		try {
 			query=LastFmAccess.getQueryStringForUser("user.gettoptracks", user.getName());
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		List<Track> tracks=LastFmAccess.parseTracks("toptracks",query);
@@ -29,12 +28,10 @@ public class Crawler implements CrawlerInterface{
 	}
 
 	public User getUserInfo(String username) {
-		// TODO Auto-generated method stub
 		String query=null;
 		try {
 			query=LastFmAccess.getQueryStringForUser("user.getinfo", username);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return LastFmAccess.parseUserInfo(query);
@@ -45,7 +42,6 @@ public class Crawler implements CrawlerInterface{
 		try {
 			query=LastFmAccess.getQueryStringForUser("user.getfriends", user.getName());
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return LastFmAccess.parseUserFriends(query);
@@ -60,7 +56,6 @@ public class Crawler implements CrawlerInterface{
 			List<User> friends=getUserFriends(user);
 			if(friends==null)continue;
 			for (User friend : friends) {
-				// TODO: if user not in database - add to db
 				System.out.println(friend);
 				usersQueue.add(friend);				
   		   }			
@@ -72,7 +67,6 @@ public class Crawler implements CrawlerInterface{
 		try {
 			query=LastFmAccess.getQueryStringForUser("user.getlovedtracks", user.getName());
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		List<Track> tracks=LastFmAccess.parseTracks("lovedtracks",query);
@@ -85,7 +79,6 @@ public class Crawler implements CrawlerInterface{
 		try {
 			query=LastFmAccess.getQueryStringForTrack("track.getsimilar",track.getArtist(),track.getName());
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		List<Track> tracks=LastFmAccess.parseTracks("similartracks",query);

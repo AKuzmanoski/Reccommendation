@@ -1,6 +1,5 @@
 package mk.ukim.finki.iis;
 
-import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.services.MainService;
@@ -14,7 +13,7 @@ public class TestMain {
 
     public static void main(String[] args) {
         crawl(100000000, 1000000000);
-        example();
+        //example();
     }
 
     /**
@@ -36,8 +35,7 @@ public class TestMain {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/business-config.xml");
         MainService mainService = (MainService) context.getBean("mainServiceImpl");
 
-        Country country = new Country("Macedonia");
-        User user = new User("Aleksandar Kuzmanoski", "https://www.facebook.com/aleksandar.kuzmanoskii", country, 12345L);
+        User user = new User("Aleksandar Kuzmanoski", "https://www.facebook.com/aleksandar.kuzmanoskii", "Macedonia", 12345L);
         Track track = new Track(115523456654L, "Mello", "https://www.youtube.com/watch?v=YQHsXMglC9A", "Adele");
 
         user = mainService.insertUser(user);

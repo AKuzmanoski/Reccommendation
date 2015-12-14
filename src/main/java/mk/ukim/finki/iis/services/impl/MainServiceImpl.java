@@ -1,18 +1,16 @@
 package mk.ukim.finki.iis.services.impl;
 
-import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
-import mk.ukim.finki.iis.services.CountryService;
 import mk.ukim.finki.iis.services.CrawlerService;
 import mk.ukim.finki.iis.services.MainService;
 import mk.ukim.finki.iis.services.TrackService;
 import mk.ukim.finki.iis.services.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,8 +23,6 @@ public class MainServiceImpl implements MainService {
     @Autowired
     private UserService userService;
     @Autowired
-    private CountryService countryService;
-    @Autowired
     @Qualifier(value = "threadedCrawlerServiceImpl")
     private CrawlerService crawlerService;
 
@@ -38,10 +34,6 @@ public class MainServiceImpl implements MainService {
         return userService.getUserById(id);
     }
 
-    public Country getCountryById(Long id) {
-        return countryService.getCountryById(id);
-    }
-
     public Track insertTrack(Track track) {
         return trackService.insertTrack(track);
     }
@@ -50,15 +42,8 @@ public class MainServiceImpl implements MainService {
         return userService.insertUser(user);
     }
 
-    public Country insertCountry(Country country) {
-        return countryService.insertCountry(country);
-    }
-
     public void crawlLastFm(int numberOfSongs, int numberOfUsers) {
-        // TODO implementiraj go ovoj metod za krolanje.
-        // Mislam deka bi bilo dobro implementacijata da ja izvadis vo drug servis za da ne se usloznuva ovaa klasa.
-        // Ovaa klasa ke glumi fasada koja ke gi definira site metodi od celata aplikacija.
-    	crawlerService.crawlUsers(numberOfUsers);
+        crawlerService.crawlLastFm(numberOfSongs, numberOfUsers);
     }
 
     public void userListened(User user, Track track) {
@@ -74,21 +59,21 @@ public class MainServiceImpl implements MainService {
         return null;
     }
 
-    public List<Country> recommendCountries(Track track) {
-        // TODO dadi gi preporacanite drzavi za odredena pesna. (Implementiraj)
-        return null;
-    }
-
-    public Country getCountryByName(String name) {
-        return countryService.getCountryByName(name);
-    }
-
     public Track getTrackByLastFmId(Long id) {
         return trackService.getTrackByLastFmId(id);
     }
 
 
-	public User getUserByUsername(String username) {
-		return userService.getUserByUsername(username);
-	}
+    public User getUserByUsername(String username) {
+        return userService.getUserByUsername(username);
+    }
+
+    public List<String> recommendCountries(Track track) {
+        // TODO implement this method to recommend countries where this song can be popular.
+        List<String> countries = new LinkedList<String>();
+        countries.add("Macedonia");
+        countries.add("France");
+        countries.add("Austria");
+        return countries;
+    }
 }

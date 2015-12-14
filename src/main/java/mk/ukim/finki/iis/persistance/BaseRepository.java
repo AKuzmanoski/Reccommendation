@@ -91,6 +91,17 @@ public class BaseRepository {
     }
 
     @Transactional
+    public void executeQuery(String queryString) {
+        Query query = entityManager.createNativeQuery(queryString);
+        query.getSingleResult();
+    }
+
+    @Transactional
+    public <T extends BaseEntity> void insert(List<T> entities) {
+
+    }
+
+    @Transactional
     public <T> int delete(Class<T> type, Long id) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaDelete<T> criteriaDelete = criteriaBuilder.createCriteriaDelete(type);

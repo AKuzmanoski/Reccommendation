@@ -1,7 +1,6 @@
 package mk.ukim.finki.iis.lastfmAccess;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -9,10 +8,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import mk.ukim.finki.iis.model.Country;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -82,7 +79,6 @@ public class LastFmAccess {
 	    try {
 			content=getContentFromUrl(url);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -114,7 +110,6 @@ public class LastFmAccess {
 	    try {
 			content=getContentFromUrl(url);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    User user=new User();
@@ -130,8 +125,7 @@ public class LastFmAccess {
 		user.setName(jsonUser.getString("name"));
 		user.setUrl(jsonUser.getString("url"));
 		String countryName = jsonUser.getString("country");
-		Country country = new Country(countryName);
-		user.setCountry(country);
+		user.setCountry(countryName);
 		return user;
 	}
 	public static List<User> parseUserFriends(String url) throws JSONException {
@@ -140,7 +134,6 @@ public class LastFmAccess {
 	    try {
 			content=getContentFromUrl(url);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -154,8 +147,7 @@ public class LastFmAccess {
 			user.setName(jObj.getString("name"));
 			user.setUrl(jObj.getString("url"));
 			String countryName = jObj.getString("country");
-			Country country = new Country(countryName);
-			user.setCountry(country);
+			user.setCountry(countryName);
 			friends.add(user);
 		}
 		return friends;
@@ -167,7 +159,6 @@ public class LastFmAccess {
 	    try {
 			content=getContentFromUrl(url);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		JSONObject json = new JSONObject(content);

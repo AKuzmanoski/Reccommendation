@@ -3,6 +3,7 @@ package mk.ukim.finki.iis.services;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public interface UserService {
 
     void setUsersCrawled(List<User> usersForCrawling);
 
-    Long insertUsers(List<User> friends);
+    Long insertUsers(Collection<User> friends);
 
     Long getNumberOfUsers();
 }

@@ -1,16 +1,14 @@
 package mk.ukim.finki.iis.services.impl;
 
-import mk.ukim.finki.iis.model.Country;
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.persistance.UserRepository;
-import mk.ukim.finki.iis.services.CountryService;
 import mk.ukim.finki.iis.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -45,7 +43,7 @@ public class UserServiceImpl implements UserService {
         userRepository.setUsersCrawled(crawledUsers);
     }
 
-    public Long insertUsers(List<User> users) {
+    public Long insertUsers(Collection<User> users) {
         return userRepository.insertUsers(users);
     }
 

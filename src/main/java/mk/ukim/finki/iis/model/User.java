@@ -1,15 +1,17 @@
 package mk.ukim.finki.iis.model;
 
+import org.hibernate.annotations.SQLInsert;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
+    @Column(unique = true)
     private String name;
     private String url;
     private String gender;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Country country;
+    private String country;
     @Column(name = "lastfm_id", unique = true)
     private Long lastFMId;
     private Boolean friendListCrawled;
@@ -22,11 +24,10 @@ public class User extends BaseEntity {
         this.name = name;
     }
 
-    public User(String name, String url, Country country, Long lastFMId) {
+    public User(String name, String url, String country, Long lastFMId) {
         super();
         this.name = name;
         this.url = url;
-        this.country = new Country();
         this.country = country;
         this.lastFMId = lastFMId;
     }
@@ -47,11 +48,11 @@ public class User extends BaseEntity {
         this.url = url;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -79,5 +80,24 @@ public class User extends BaseEntity {
 
     public void setFriendListCrawled(Boolean friendListCrawled) {
         this.friendListCrawled = friendListCrawled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        User user = (User) o;
+
+        return getName().equals(user.getName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getName().hashCode();
+        return result;
     }
 }

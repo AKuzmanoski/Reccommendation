@@ -4,6 +4,7 @@ import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
 import mk.ukim.finki.iis.model.UserListensTrack;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public interface UserRepository {
 
     List<User> getUsersForCrawl(int numberOfUsers);
 
-    Long insertUsers(List<User> users);
+    Long insertUsers(Collection<User> users);
 
     void setUsersCrawled(List<User> crawledUsers);
 
