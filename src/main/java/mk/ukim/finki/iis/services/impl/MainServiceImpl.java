@@ -59,8 +59,8 @@ public class MainServiceImpl implements MainService {
         return null;
     }
 
-    public Track getTrackByLastFmId(Long id) {
-        return trackService.getTrackByLastFmId(id);
+    public Track getTrackByUrl(String url) {
+        return trackService.getTrackByUrl(url);
     }
 
 

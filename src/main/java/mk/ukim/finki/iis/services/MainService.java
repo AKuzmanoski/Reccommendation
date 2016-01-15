@@ -8,7 +8,7 @@ import java.util.List;
 public interface MainService {
     Track getTrackById(Long id);
 
-    Track getTrackByLastFmId(Long id);
+    Track getTrackByUrl(String url);
 
     User getUserById(Long id);
 
