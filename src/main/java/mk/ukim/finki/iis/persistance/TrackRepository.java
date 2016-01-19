@@ -10,5 +10,5 @@ public interface TrackRepository {
 
     Track insertTrack(Track track);
 
-    Track getTrackByLastFmId(Long id);
+    Track getTrackByUrl(String url);
 }

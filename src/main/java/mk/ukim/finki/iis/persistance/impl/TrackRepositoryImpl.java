@@ -1,10 +1,12 @@
 package mk.ukim.finki.iis.persistance.impl;
 
 import com.fasterxml.jackson.databind.deser.Deserializers;
+
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.persistance.BaseRepository;
 import mk.ukim.finki.iis.persistance.TrackRepository;
-import mk.ukim.finki.iis.persistance.helper.TrackByLastFmIdPredicateBuilder;
+import mk.ukim.finki.iis.persistance.helper.TrackByUrlPredicateBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +42,14 @@ public class TrackRepositoryImpl implements TrackRepository {
     }
 
     private Track exists(Track track) {
-        return getTrackByLastFmId(track.getMbid());
+        return getTrackByUrl(track.getUrl());
     }
 
-    public Track getTrackByLastFmId(Long id) {
-        List<Track> tracks = baseRepository.find(Track.class, new TrackByLastFmIdPredicateBuilder<Track>(id));
+    public Track getTrackByUrl(String url) {
+        List<Track> tracks = baseRepository.find(Track.class, new TrackByUrlPredicateBuilder<Track>(url));
         if (tracks.size() > 0)
             return tracks.get(0);
         return null;
     }
+
 }

@@ -1,23 +1,26 @@
 package mk.ukim.finki.iis.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "songs")
 public class Track extends BaseEntity {
     @Column(name = "lastfm_id")
-    private Long mbid;
+    private String mbid;
     private String name;
+    private Long playcount;
+    @Column(unique=true)
     private String url;
-    private String artist;
+	private String artist;
 
     public Track() {
 
     }
+    //.......
 
-    public Track(Long mbid, String name, String url, String artist) {
+    public Track(String mbid, String name, String url, String artist) {
         super();
         this.mbid = mbid;
         this.name = name;
@@ -25,11 +28,11 @@ public class Track extends BaseEntity {
         this.artist = artist;
     }
 
-    public Long getMbid() {
+    public String getMbid() {
         return mbid;
     }
 
-    public void setMbid(Long mbid) {
+    public void setMbid(String mbid) {
         this.mbid = mbid;
     }
 
@@ -62,4 +65,12 @@ public class Track extends BaseEntity {
         return "Track [mbid=" + mbid + ", name=" + name + ", url=" + url
                 + ", artist=" + artist + "]";
     }
+    
+    public Long getPlaycount() {
+		return playcount;
+	}
+
+	public void setPlaycount(Long playcount) {
+		this.playcount = playcount;
+	}
 }
