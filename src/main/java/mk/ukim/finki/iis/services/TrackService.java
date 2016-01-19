@@ -10,5 +10,6 @@ public interface TrackService {
 
     Track insertTrack(Track track);
 
-    Track getTrackByLastFmId(Long id);
+    Track getTrackByUrl(String url);
+
 }
