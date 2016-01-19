@@ -32,7 +32,7 @@ public class TestMain {
      * Ova vcituvanje e najdobro da bide vo MainService. Vidi TO DO ti imam napisano
      */
     private static void example() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring/business-config.xml");
+        /*ApplicationContext context = new ClassPathXmlApplicationContext("spring/business-config.xml");
         MainService mainService = (MainService) context.getBean("mainServiceImpl");
 
         User user = new User("Aleksandar Kuzmanoski", "https://www.facebook.com/aleksandar.kuzmanoskii", "Macedonia", 12345L);
@@ -41,5 +41,6 @@ public class TestMain {
         user = mainService.insertUser(user);
         track = mainService.insertTrack(track);
         mainService.userListened(user, track, 100L);
+        */
     }
 }

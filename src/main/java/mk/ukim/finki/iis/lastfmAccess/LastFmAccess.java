@@ -89,14 +89,17 @@ public class LastFmAccess {
 		for (int i = 0; i < jsonItems.length(); i++) {
 			JSONObject jObj = (JSONObject) jsonItems.get(i);
 			Track track=new Track();
-			if(jObj.has("mbid")){
-				track.setMbid(Long.parseLong(jObj.getString("mbid")));
+			if(jObj.has("mbid") && jObj.getString("mbid")!=""){
+				track.setMbid(jObj.getString("mbid"));
 			}
 			if(jObj.has("name")){
 				track.setName(jObj.getString("name"));
 			}
 			if(jObj.has("url")){
 				track.setUrl(jObj.getString("url"));
+			}
+			if(jObj.has("playcount")){
+				track.setPlaycount(jObj.getLong("playcount"));
 			}
 			JSONObject artist=jObj.getJSONObject("artist");
 			track.setArtist(artist.getString("name"));
