@@ -30,7 +30,7 @@ public class LastFmAccess {
 		String query="http://ws.audioscrobbler.com/2.0/?method="+method;
 		query+="&artist="+URLEncoder.encode(artist.toLowerCase(),"utf-8");
 	    query+="&track=" + URLEncoder.encode(track.toLowerCase(),"utf-8");
-	    query+="&api_key="+API_KEY+"&format=json";
+	    query+="&api_key="+API_KEY+"&format=json&limit=5000";
 	    return query;
 	}
 	public static String getQueryStringForUser(String method,String user) throws UnsupportedEncodingException{
