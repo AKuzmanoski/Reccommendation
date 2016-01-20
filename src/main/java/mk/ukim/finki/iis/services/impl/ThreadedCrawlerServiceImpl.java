@@ -170,6 +170,6 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler, 
     synchronized
     public void addRoundUserTracks(User user, List<Track> tracks) {
         for(Track track : tracks)
-            roundUserListensTrack.add(new UserListensTrack(track, user, 1L));
+            roundUserListensTrack.add(new UserListensTrack(track, user, track.getPlaycount()));
     }
 }
