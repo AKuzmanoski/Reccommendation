@@ -104,12 +104,13 @@ public class UserRepositoryJpa implements UserRepository {
                 int index = i * 5;
                 statement.setString(index + 1, user.getName());
                 statement.setString(index + 2, user.getCountry());
+                statement.setString(index + 3, user.getGender());
                 //statement.setLong(index + 4, user.getLastFMId());
                 statement.setString(index + 4, user.getUrl());
                 statement.setBoolean(index + 5, false);
                 i++;
             }
-//            System.out.println("##################################################" + statement.toString());
+            //System.out.println("##################################################" + statement.toString());
             statement.executeUpdate();
 
             connection.commit();
