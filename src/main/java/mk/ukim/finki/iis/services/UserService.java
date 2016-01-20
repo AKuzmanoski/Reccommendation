@@ -2,9 +2,12 @@ package mk.ukim.finki.iis.services;
 
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
+import org.springframework.data.domain.Page;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by User on 12/1/2015.
@@ -12,17 +15,17 @@ import java.util.List;
 public interface UserService {
     User getUserById(Long id);
 
-    User insertUser(User user);
-
-    public void userListened(User user, Track track, Long playCount);
+    User saveUser(User user);
 
     User getUserByUsername(String username);
 
     List<User> getUsersForCrawl(int numberOfThreads);
 
-    void setUsersCrawled(List<User> usersForCrawling);
+    void setUsersCrawled(Collection<User> usersForCrawling);
 
-    Long insertUsers(Collection<User> friends);
+    List<User> saveUsers(Collection<User> friends);
 
     Long getNumberOfUsers();
+
+
 }

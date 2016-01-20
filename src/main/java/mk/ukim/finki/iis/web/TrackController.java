@@ -23,14 +23,16 @@ public class TrackController {
     private MainService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody Track getTrack(@PathVariable(value = "id") Long id) {
+    public
+    @ResponseBody
+    Track getTrack(@PathVariable(value = "id") Long id) {
         return service.getTrackById(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void putTrack(@PathVariable("id") Long id, @Valid Track track) {
-        service.insertTrack(track);
+        service.saveTrack(track);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -42,18 +44,18 @@ public class TrackController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Track createTrack(@Valid Track track, BindingResult result, HttpServletResponse response) throws BindException {
-        track = service.insertTrack(track);
+        track = service.saveTrack(track);
 
         if (result.hasErrors()) {
             throw new BindException(result);
         }
-        response.setHeader("Location", "/tracks/" + track.getEntityId());
+        response.setHeader("Location", "/tracks/" + track);
         return track;
     }
 
     @RequestMapping(method = RequestMethod.POST, headers = "Content-Type=application/json")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void createTrack(@RequestBody Track track) {
-        service.insertTrack(track);
+        service.saveTrack(track);
     }
 }

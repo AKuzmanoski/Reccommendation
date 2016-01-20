@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import mk.ukim.finki.iis.crawler.CrawlerInterface;
 import mk.ukim.finki.iis.model.User;
-import mk.ukim.finki.iis.persistance.UserRepository;
 import mk.ukim.finki.iis.services.CrawlerService;
 import mk.ukim.finki.iis.services.UserService;
 
@@ -47,7 +46,7 @@ public class CrawlerServiceImpl implements CrawlerService{
 			if(friends==null)continue;
 			for (User friend : friends) {
 				// TODO: if user not in database - add to db
-				userService.insertUser(crawler.getUserInfo(friend.getName()));
+				userService.saveUser(crawler.getUserInfo(friend.getName()));
 				usersQueue.add(friend);				
   		   }			
 		}

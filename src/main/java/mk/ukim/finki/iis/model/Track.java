@@ -1,17 +1,14 @@
 package mk.ukim.finki.iis.model;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "songs")
-public class Track extends BaseEntity {
+public class Track {
     @Column(name = "lastfm_id")
     private String mbid;
     private String name;
     private Long playcount;
-    @Column(unique=true)
+    @Id
     private String url;
 	private String artist;
 
@@ -73,4 +70,20 @@ public class Track extends BaseEntity {
 	public void setPlaycount(Long playcount) {
 		this.playcount = playcount;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Track track = (Track) o;
+
+        return !(getUrl() != null ? !getUrl().equals(track.getUrl()) : track.getUrl() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getUrl() != null ? getUrl().hashCode() : 0;
+    }
 }

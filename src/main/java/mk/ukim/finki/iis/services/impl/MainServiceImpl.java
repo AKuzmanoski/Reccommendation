@@ -2,10 +2,8 @@ package mk.ukim.finki.iis.services.impl;
 
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
-import mk.ukim.finki.iis.services.CrawlerService;
-import mk.ukim.finki.iis.services.MainService;
-import mk.ukim.finki.iis.services.TrackService;
-import mk.ukim.finki.iis.services.UserService;
+import mk.ukim.finki.iis.model.UserListensTrack;
+import mk.ukim.finki.iis.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,8 @@ public class MainServiceImpl implements MainService {
     @Autowired
     @Qualifier(value = "threadedCrawlerServiceImpl")
     private CrawlerService crawlerService;
+    @Autowired
+    private UserListensTrackService userListensTrackService;
 
     public Track getTrackById(Long id) {
         return trackService.getTrackById(id);
@@ -34,24 +34,28 @@ public class MainServiceImpl implements MainService {
         return userService.getUserById(id);
     }
 
-    public Track insertTrack(Track track) {
-        return trackService.insertTrack(track);
+    public Track saveTrack(Track track) {
+        return trackService.saveTrack(track);
     }
 
-    public User insertUser(User user) {
-        return userService.insertUser(user);
+    public User saveUser(User user) {
+        return userService.saveUser(user);
+    }
+
+    public UserListensTrack userListensTrack(UserListensTrack userListensTrack) {
+        return userListensTrackService.save(userListensTrack);
     }
 
     public void crawlLastFm(int numberOfSongs, int numberOfUsers) {
         crawlerService.crawlLastFm(numberOfSongs, numberOfUsers);
     }
 
-    public void userListened(User user, Track track) {
-        userListened(user, track, 1L);
+    public UserListensTrack userListensTrack(User user, Track track) {
+        return userListensTrack(new UserListensTrack(track, user, 1L));
     }
 
-    public void userListened(User user, Track track, Long playCount) {
-        userService.userListened(user, track, playCount);
+    public UserListensTrack userListensTrack(User user, Track track, Long playCount) {
+        return userListensTrack(new UserListensTrack(track, user, playCount));
     }
 
     public User login(String username, String password) {

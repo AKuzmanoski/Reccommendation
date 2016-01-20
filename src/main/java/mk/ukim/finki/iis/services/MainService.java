@@ -2,6 +2,7 @@ package mk.ukim.finki.iis.services;
 
 import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
+import mk.ukim.finki.iis.model.UserListensTrack;
 
 import java.util.List;
 
@@ -14,13 +15,15 @@ public interface MainService {
 
     User getUserByUsername(String username);
 
-    Track insertTrack(Track track);
+    Track saveTrack(Track track);
 
-    User insertUser(User user);
+    User saveUser(User user);
 
-    void userListened(User user, Track track, Long playCount);
+    UserListensTrack userListensTrack(User user, Track track, Long playCount);
 
-    void userListened(User user, Track track);
+    UserListensTrack userListensTrack(User user, Track track);
+
+    UserListensTrack userListensTrack(UserListensTrack userListensTrack);
 
     void crawlLastFm(int numberOfSongs, int numberOfUsers);
 

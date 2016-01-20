@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
-    @Column(unique = true)
+public class User {
+    @Id
     private String name;
     private String url;
     private String gender;
@@ -86,18 +86,15 @@ public class User extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         User user = (User) o;
 
-        return getName().equals(user.getName());
+        return !(getName() != null ? !getName().equals(user.getName()) : user.getName() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getName().hashCode();
-        return result;
+        return getName() != null ? getName().hashCode() : 0;
     }
 }

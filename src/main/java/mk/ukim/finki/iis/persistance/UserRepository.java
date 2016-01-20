@@ -1,8 +1,6 @@
 package mk.ukim.finki.iis.persistance;
 
-import mk.ukim.finki.iis.model.Track;
 import mk.ukim.finki.iis.model.User;
-import mk.ukim.finki.iis.model.UserListensTrack;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,17 +11,15 @@ import java.util.List;
 public interface UserRepository {
     User getUserById(Long id);
 
-    User insertUser(User user);
-
-    UserListensTrack userListens(User user, Track track, Long playCount);
+    User saveUser(User user);
 
     User getUserByUsername(String username);
 
     List<User> getUsersForCrawl(int numberOfUsers);
 
-    Long insertUsers(Collection<User> users);
+    List<User> saveUsers(Collection<User> users);
 
-    void setUsersCrawled(List<User> crawledUsers);
+    void setUsersCrawled(Collection<User> crawledUsers);
 
     Long getNumberOfUsers();
 }

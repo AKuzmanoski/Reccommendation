@@ -7,17 +7,20 @@ import mk.ukim.finki.iis.model.User;
  */
 public class FriendListCrawlerThread extends Thread {
     private User user;
-    private UserCrawler crawler;
+    private UserCrawler userCrawler;
+    private TrackCrawler trackCrawler;
 
 
-    public FriendListCrawlerThread(User user, UserCrawler crawler) {
+    public FriendListCrawlerThread(User user, UserCrawler userCrawler, TrackCrawler trackCrawler ) {
         this.user = user;
-        this.crawler = crawler;
+        this.userCrawler = userCrawler;
+        this.trackCrawler = trackCrawler;
     }
 
     @Override
     public void run() {
         super.run();
-        crawler.crawlFriendsForUser(user);
+        userCrawler.crawlFriendsForUser(user);
+        trackCrawler.crawlTracksForUser(user);
     }
 }
