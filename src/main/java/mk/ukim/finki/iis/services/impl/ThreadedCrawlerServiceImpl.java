@@ -8,12 +8,10 @@ import mk.ukim.finki.iis.services.CrawlerService;
 import mk.ukim.finki.iis.services.TrackService;
 import mk.ukim.finki.iis.services.UserListensTrackService;
 import mk.ukim.finki.iis.services.UserService;
-import mk.ukim.finki.iis.services.helper.userCrawling.FriendListCrawlerThread;
 import mk.ukim.finki.iis.services.helper.userCrawling.TrackCrawler;
 import mk.ukim.finki.iis.services.helper.userCrawling.UserCrawler;
+import mk.ukim.finki.iis.services.helper.userCrawling.UserDataCrawlerThread;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -87,7 +85,7 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler, 
 
     public void runThreadsForUsers(List<User> users) {
         for (User user : users) {
-            Thread thread = new FriendListCrawlerThread(user, this, this);
+            Thread thread = new UserDataCrawlerThread(user, this, this);
             thread.start();
         }
     }
@@ -169,7 +167,7 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler, 
 
     synchronized
     public void addRoundUserTracks(User user, List<Track> tracks) {
-        for(Track track : tracks)
+        for (Track track : tracks)
             roundUserListensTrack.add(new UserListensTrack(track, user, track.getPlaycount()));
     }
 }
