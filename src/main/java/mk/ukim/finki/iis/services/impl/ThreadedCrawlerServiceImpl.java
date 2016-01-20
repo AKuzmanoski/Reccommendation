@@ -27,7 +27,7 @@ public class ThreadedCrawlerServiceImpl implements CrawlerService, UserCrawler, 
     /**
      * This constant indicates how many user friend lists will be crawled simultaneously.
      */
-    private static final int NUMBER_OF_THREADS = 10;
+    private static final int NUMBER_OF_THREADS = 20;
     Semaphore waitForThreads = new Semaphore(0);
     Semaphore waitForDataAccess = new Semaphore(0);
     @Autowired

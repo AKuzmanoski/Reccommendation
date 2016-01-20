@@ -124,7 +124,7 @@ public class UserRepositoryJpa implements UserRepository {
         for (User user : crawledUsers) {
             user.setFriendListCrawled(true);
         }
-        saveUsers(crawledUsers);
+        repository.save(crawledUsers);
     }
 
     public Long getNumberOfUsers() {
