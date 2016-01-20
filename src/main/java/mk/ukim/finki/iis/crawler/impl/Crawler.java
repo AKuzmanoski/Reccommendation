@@ -19,6 +19,7 @@ public class Crawler implements CrawlerInterface{
 		String query=null;
 		try {
 			query=LastFmAccess.getQueryStringForUser("user.gettoptracks", user.getName());
+			query+="&limit=5000";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
